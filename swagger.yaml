@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  title: JOBS API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://jobs-api-production-2c16.up.railway.app/api/v1
+    variables: {}
+paths:
+  /jobs:
+    get:
+      tags:
+        - Jobs
+      summary: All jobs
+      operationId: Alljobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - Jobs
+      summary: create job
+      operationId: createjob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/createjobrequest"
+                - example:
+                    company: Webuye
+                    position: Manager
+                    status: interview
+            example:
+              company: Webuye
+              position: Manager
+              status: interview
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id # Note the name is the same as in the path
+        required: true
+        schema:
+          type: string
+          minimum: 1
+        description: The Job id
+    delete:
+      tags:
+        - Jobs
+      summary: Delete job
+      operationId: Deletejob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Jobs
+      summary: get job
+      operationId: getjob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Jobs
+      summary: Update job
+      operationId: Updatejob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdatejobRequest"
+                - example:
+                    company: Karatasi
+            example:
+              company: Karatasi
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/loginrequest"
+                - example:
+                    email: gavin@gmail.com
+                    password: "1213234"
+            example:
+              email: gavin@gmail.com
+              password: "1213234"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/registerrequest"
+                - example:
+                    name: Gavin
+                    email: gavin@gmail.com
+                    password: "1213234"
+            example:
+              name: Gavin
+              email: gavin@gmail.com
+              password: "1213234"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    loginrequest:
+      title: loginrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: gavin@gmail.com
+        password: "1213234"
+    UpdatejobRequest:
+      title: UpdatejobRequest
+      required:
+        - company
+      type: object
+      properties:
+        company:
+          type: string
+      example:
+        company: Karatasi
+    createjobrequest:
+      title: createjobrequest
+      required:
+        - company
+        - position
+        - status
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: Webuye
+        position: Manager
+        status: interview
+    registerrequest:
+      title: registerrequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Gavin
+        email: gavin@gmail.com
+        password: "1213234"
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Jobs
+    description: ""
+  - name: Auth
+    description: ""
